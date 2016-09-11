@@ -27,9 +27,9 @@ class EntrustServiceProvider extends ServiceProvider
     public function boot()
     {
         // Publish config files
-        $this->publishes([
-            __DIR__.'/../config/config.php' => config_path('entrust.php'),
-        ]);
+        // $this->publishes([
+        //     __DIR__.'/../config/config.php' => config_path('entrust.php'),
+        // ]);
 
         // Register commands
         $this->commands('command.entrust.migration');
@@ -59,6 +59,8 @@ class EntrustServiceProvider extends ServiceProvider
      */
     private function bladeDirectives()
     {
+        if (!class_exists('\Blade')) return;
+        
         // Call to Entrust::hasRole
         \Blade::directive('role', function($expression) {
             return "<?php if (\\Entrust::hasRole{$expression}) : ?>";
@@ -120,9 +122,9 @@ class EntrustServiceProvider extends ServiceProvider
      */
     private function mergeConfig()
     {
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/config.php', 'entrust'
-        );
+        // $this->mergeConfigFrom(
+        //     __DIR__.'/../config/config.php', 'entrust'
+        // );
     }
 
     /**
